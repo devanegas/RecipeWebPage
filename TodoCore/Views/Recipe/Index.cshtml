@@ -1,0 +1,82 @@
+﻿@using  TodoCore.Models
+@using  Humanizer
+@model RecipeViewModel
+
+@{
+    ViewData["Title"] = "Manage your Recipes";
+}
+
+<div class="panel pannel-default todo-panel">
+    <div class="panel-heading">@ViewData["Title"]</div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td>&#x2714;</td>
+                <td>Recipe</td>
+                <td>Type</td>
+                <td>Ingredients</td>
+            </tr>
+        </thead>
+
+        @foreach (var recipe in Model.Recipes)
+        {
+            <tr>
+                <td>
+                    <form asp-action="MarkDone" method="post">
+                        <input type="checkbox" class="done-checkbox" />
+                        <input type="hidden" name="id" value="@recipe.Id" />
+                    </form>
+                </td>
+                <td>@recipe.Title</td>
+                <td>@recipe.Type</td>
+                <td>
+                    <h5> Ingredients: </h5>
+                    <ul>
+                    
+                       @foreach (var ingredient in recipe.Ingredients ?? throw new ArgumentNullException(nameof(Ingredients)))
+                            {
+                            <li>
+                                <form asp-action="ToggleIngredientAsync" method="post">
+                                    <input type="hidden" name="id" value="@ingredient.Id" />
+                                    @ingredient.Title
+                                    [
+                                    @ingredient.Quantity
+                                    @ingredient.Units
+                                    ]
+                                </form>
+                            </li>
+                        }
+                    </ul>
+                    @{
+                        var newIngredient = new Ingredients(recipe);
+                    <form asp-action="AddIngredient" method="post">
+                        <label asp-for="@newIngredient.Title">> Add a new ingredient:</label>
+                        <input asp-for="@newIngredient.Title" />
+                        <label asp-for="@newIngredient.Quantity">How many?: </label>
+                        <input asp-for="@newIngredient.Quantity" />
+                        <label asp-for="@newIngredient.Units">What units?:</label>
+                        <select asp-for="@newIngredient.Units">
+                            <option value="kg">Kilograms</option>
+                            <option value="cups">Cups</option>
+                            <option value="lbs">Pounds</option>
+                            <option value="units">Quantity</option>
+                            <option value="oz">Ounces</option>
+                            <option value="fl. oz">Fluid Ounces</option>
+                            <option value="fl. oz">Fluid Ounces</option>
+                        </select>
+                        <input type="hidden" name="id" value="@recipe.Id" />
+                        <button type="submit">Add</button>
+                    </form>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+
+    <div class="panel-footer add-item-form">
+        <!-- todo: add item form-->
+        @await Html.PartialAsync("AddItemPartial", new Recipe())
+    </div>
+</div>
+
