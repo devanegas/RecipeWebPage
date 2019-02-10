@@ -54,7 +54,7 @@
                         <label asp-for="@newIngredient.Title">> Add a new ingredient:</label>
                         <input asp-for="@newIngredient.Title" />
                         <label asp-for="@newIngredient.Quantity">How many?: </label>
-                        <input asp-for="@newIngredient.Quantity" />
+                        <input asp-for="@newIngredient.Quantity" min="1" />
                         <label asp-for="@newIngredient.Units">What units?:</label>
                         <select asp-for="@newIngredient.Units">
                             <option value="kg">Kilograms</option>

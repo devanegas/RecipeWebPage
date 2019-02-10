@@ -35,8 +35,8 @@ namespace TodoCore.Services
             ingredients.RecipeParent = parent;
             ingredients.IsUsed = false;
 
-            if (ingredients.Quantity == 0)
-                return false;
+            //if (ingredients.Quantity == 0)
+            //    return false;
 
             _context.Ingredients.Add(ingredients);
 

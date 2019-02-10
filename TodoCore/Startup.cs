@@ -89,7 +89,7 @@ namespace TodoCore
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Recipe}/{action=Index}/{id?}");
             });
             app.UseSwagger();
             app.UseSwaggerUI(c =>

@@ -30,6 +30,7 @@ namespace TodoCore.Controllers
             if (!ModelState.IsValid)
                 return RedirectToAction("Index");
 
+
             var successful = await recipeService.AddRecipeAsync(newRecipe);
             if (!successful)
                 return BadRequest("Could not add recipe");
@@ -42,6 +43,10 @@ namespace TodoCore.Controllers
         {
             if (!ModelState.IsValid)
                 return RedirectToAction("Index");
+
+            if (newIngredient.Quantity <= 0 || newIngredient.Title == null)
+                return RedirectToAction("Index");
+
 
             var successful = await recipeService.AddIngredientsAsync(id, newIngredient);
             if (!successful)
