@@ -186,9 +186,8 @@ namespace TodoCore.Data.Migrations
 
             modelBuilder.Entity("TodoCore.Models.Ingredients", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("IsUsed");
 
